@@ -12,7 +12,7 @@ This project includes:
 - Hands-on implementation based on the official codebase
 - Personal observations, limitations, and suggestions for improvement
 
-
+<br>
 
 ## 📄 論文重點整理
 
@@ -221,7 +221,7 @@ This project includes:
   - 設計思路：要求 LLM 解釋現有 heuristic 的邏輯，再請它「重新調整程式碼，使其更符合語意描述」。
   - Prompt 範例：”Explain the logic of the following code. Then refine the code so that it better matches the described heuristic idea.”
   
-### 3. Fitness 評估瓶頸
+### 4. Fitness 評估瓶頸
 - 問題：每個個體需要在多個測試實例上運行才能得到 Fitness 值，而每一代最多會產生 5N 個個體 (來自 E1、E2、M1~M3)，造成整體評估次數急劇上升。
 
 - 改進方法：採兩階段策略，先在測試資料子集合評估，再篩選前 K 進行完整評估
