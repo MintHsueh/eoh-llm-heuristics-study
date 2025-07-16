@@ -26,11 +26,32 @@ This project includes:
 - EoH 理念：以自然語言 thought 表達高啟發式算法的邏輯 → LLM 生成 Python 程式 → 達成在演化架構中不斷優化 thoughts 與 code (貼近人類的設計邏輯)。
 
 ### 3. EoH 方法說明
-- EoH 流程架構如下：  
-  <img src="./diagrams/EoH_flow.png" alt="EoH flow" width="600">
-<br>
 
-- 其中論文提出的 5 種 prompt 策略如下：
+- #### step 1. 初始族群建立
+
+  - 利用初始化的 prompt，讓 LLM 產生 N 個 heuristics，形成初始族群 $P = \{ h_1, ..., h_N \}$
+  - 每個個體包含：
+    - **Thought**：以自然語言描述 heuristic 邏輯
+    - **Code**：Thought 對應的 Python 函數（含名稱、input、output 等資訊）
+    - **Fitness**：該 heuristic 在多筆資料上的平均測試表現
+
+- #### step 2. 迭代演化
+
+  - 每個世代執行 5 種 prompt 策略（operator），每個策略各執行 N 次，共產生 $5N$ 個新 heuristics offspring
+  - 每個 operator 重複以下流程：
+
+    - 從當前族群中挑選 parent heuristics：選中機率與 fitness 排名成正比：$P(h_i) \propto \frac{1}{\text{rank}_{h_i} + N}$
+
+    - 請 LLM 根據 operator prompt 產生新的： heuristic thought (自然語言邏輯)、對應的 code (可執行函數)
+
+    - 用多筆實例測試新 heuristic 的效能，取得平均 fitness 分數
+
+    - 若新產生的 heuristics 與程式碼合法且可執行，則加入目前族群中
+
+  - 最後從全部個體中挑選 fitness 最高的 N 個 heuristics，作為下一代族群成員，進入下一世代
+
+
+- #### 其中論文提出的 5 種 prompt 策略如下：
   <table>
     <thead>
       <tr>
@@ -68,8 +89,9 @@ This project includes:
     </tbody>
   </table>
 
+
 ### 4. 實驗結果
-- EoH 實驗於三種最佳化問題
+- #### EoH 實驗於三種最佳化問題
   <table>
   <thead>
     <tr>
@@ -143,9 +165,7 @@ This project includes:
   </tbody>
   </table>
 
-<br>
-
-- prompt 策略組合實驗 (Ablation Study)
+- #### prompt 策略組合實驗 (Ablation Study)
   <table>
   <thead>
     <tr>
