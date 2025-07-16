@@ -1,11 +1,18 @@
-# Evolution of Heuristics — Paper Study & Implementation
+# Evolution of Heuristics – LLM-based Heuristic Algorithm Design
 
-This repo documents my study and understanding of the paper:
+This repository documents my study and implementation of the following research paper, which explores how Large Language Models (LLMs) can be combined with evolutionary strategies to automatically generate effective heuristic algorithms.
+
+本專案旨在深入理解該論文提出的 EoH 框架，探討其如何結合大型語言模型 (LLM) 與演化式計算 (EC)，自動化產生啟發式演算法 (Heuristics)。本專案亦實作論文提供的 GitHub 程式碼，並進一步分析結果
 
 > **Evolution of Heuristics: Towards Efficient Automatic Algorithm Design Using Large Language Model**  
 > [📄 Paper Link](https://arxiv.org/abs/2401.02051) | [🔗 Official GitHub](https://github.com/FeiLiu36/EoH)
 
-本專案旨在深入理解該論文提出的 EoH 框架，探討其如何結合大型語言模型 (LLM) 與演化式計算 (EC)，自動化產生啟發式演算法 (Heuristics)。本專案亦實作論文提供的 GitHub 程式碼，並進一步分析結果
+This project includes:
+- A detailed summary and analysis of the paper’s methodology and contributions
+- Hands-on implementation based on the official codebase
+- Personal observations, limitations, and suggestions for improvement
+
+
 
 ## 📄 論文重點整理
 
