@@ -373,7 +373,7 @@ This project includes:
 ### 3. 實作結果
 - **結果觀察**：根據下圖執行日誌可知，初始族群即出現最佳解 6.13382，後續 4 代演化未能超越初始解，最終結果仍與初始解相同
 
-  <img src="./diagrams/EoH_log.png" alt="EoH log" width="600">
+  <img src="./log/EoH_log.png" alt="EoH log" width="600">
 
   <br>
 
