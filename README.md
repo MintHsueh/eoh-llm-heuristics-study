@@ -40,7 +40,7 @@ This project includes:
   - 每個世代執行 5 種 prompt 策略（operator），每個策略各執行 N 次，共產生 $5N$ 個新 heuristics offspring
   - 每個 operator 重複以下流程：
 
-    - 從當前族群中挑選 parent heuristics：選中機率與 fitness 排名成正比：$P(h_i) \propto \frac{1}{\text{rank}_{h_i} + N}$
+    - 從當前族群中挑選 parent heuristics：選中機率與 fitness 排名成正比 P(hᵢ) ∝ 1 / (rankₕᵢ + N)
 
     - 請 LLM 根據 operator prompt 產生新的： heuristic thought (自然語言邏輯)、對應的 code (可執行函數)
 
