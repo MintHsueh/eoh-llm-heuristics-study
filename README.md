@@ -15,7 +15,7 @@ This project includes:
 ## 目錄
 - [📄 論文重點整理](#-論文重點整理)
 - [📄 個人觀點](#-個人觀點)
-- [📄 EoH 流程實作紀錄（基於論文提供的 GitHub）](#-eoh-流程實作紀錄基於論文提供的-github)
+- [📄 EoH 流程實作 (基於論文提供的 GitHub)](#-eoh-流程實作-基於論文提供的-github)
 
 <br>
 
@@ -256,7 +256,7 @@ This project includes:
 
 <br>
 
-## 📄 EoH 流程實作紀錄（基於論文提供的 GitHub）
+## 📄 EoH 流程實作 (基於論文提供的 GitHub)
 
 ### 1. 參數設定
 | 物件類別 | 參數 | 數值 | 說明 |
