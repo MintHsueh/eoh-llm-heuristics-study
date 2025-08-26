@@ -1,0 +1,32 @@
+[
+     {
+          "algorithm": "Novel algorithm: At each step, select the next node by balancing proximity to the current node and alignment toward the destination, weighted by the remaining unvisited nodes' distribution.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    proximity_weight = 0.6  # Weight for proximity to current node\n    alignment_weight = 0.4  # Weight for alignment toward destination\n    scores = proximity_weight * current_distances - alignment_weight * dest_distances\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 6.13382,
+          "other_inf": null
+     },
+     {
+          "algorithm": "Novel algorithm: Select the next node by balancing proximity to the current node and direction toward the destination, using a weighted sum of distances.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_dist = distance_matrix[current_node, unvisited_nodes]\n    dest_dist = distance_matrix[destination_node, unvisited_nodes]\n    weights = 0.7 * current_dist + 0.3 * dest_dist\n    next_node_idx = np.argmin(weights)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 7.04521,
+          "other_inf": null
+     },
+     {
+          "algorithm": "Novel algorithm: Select the next node by balancing proximity to the current node and alignment toward the destination, weighted by the remaining unvisited nodes' distribution.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    \n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    \n    proximity_weight = 0.6  # Weight for proximity to current node\n    alignment_weight = 0.4  # Weight for alignment toward destination\n    \n    scores = (proximity_weight / current_distances) + (alignment_weight / dest_distances)\n    next_node = unvisited_nodes[np.argmax(scores)]\n    \n    return next_node",
+          "objective": 7.22752,
+          "other_inf": null
+     },
+     {
+          "algorithm": "Novel algorithm: Select the next node based on a weighted combination of proximity to current node, proximity to destination, and a random exploration factor, dynamically adjusting weights based on remaining unvisited nodes.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    \n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    \n    alpha = 0.6  # weight for current node proximity\n    beta = 0.3   # weight for destination proximity\n    gamma = 0.1  # weight for random exploration\n    \n    scores = alpha * current_distances + beta * dest_distances + gamma * np.random.rand(len(unvisited_nodes))\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    \n    return next_node",
+          "objective": 7.87121,
+          "other_inf": null
+     },
+     {
+          "algorithm": "Novel algorithm: Select the next node by balancing proximity and directionality, favoring nodes that are both close to the current node and aligned with the vector from current to destination node.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    current_pos = distance_matrix[current_node]\n    dest_pos = distance_matrix[destination_node]\n    direction_vector = dest_pos - current_pos\n    direction_norm = np.linalg.norm(direction_vector)\n    \n    if direction_norm == 0:\n        direction_vector = np.zeros_like(direction_vector)\n    else:\n        direction_vector = direction_vector / direction_norm\n    \n    scores = []\n    for node in unvisited_nodes:\n        node_pos = distance_matrix[node]\n        to_node_vector = node_pos - current_pos\n        to_node_dist = np.linalg.norm(to_node_vector)\n        \n        if to_node_dist == 0:\n            alignment = 0\n        else:\n            to_node_dir = to_node_vector / to_node_dist\n            alignment = np.dot(direction_vector, to_node_dir)\n        \n        proximity_score = 1 / to_node_dist\n        direction_score = (alignment + 1) / 2  # Normalized to [0, 1]\n        combined_score = proximity_score * direction_score\n        scores.append(combined_score)\n    \n    next_node = unvisited_nodes[np.argmax(scores)]\n    return next_node",
+          "objective": 8.8275,
+          "other_inf": null
+     }
+]

@@ -1,0 +1,32 @@
+[
+     {
+          "algorithm": "Novel algorithm: At each step, select the next node by balancing proximity to the current node and alignment toward the destination, weighted by the remaining unvisited nodes' distribution.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    proximity_weight = 0.6  # Weight for proximity to current node\n    alignment_weight = 0.4  # Weight for alignment toward destination\n    scores = proximity_weight * current_distances - alignment_weight * dest_distances\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 6.13382,
+          "other_inf": null
+     },
+     {
+          "algorithm": "```",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    avg_distance = np.mean(distance_matrix[np.ix_(unvisited_nodes, unvisited_nodes)])\n    proximity_weight = 0.5 * (1 - np.exp(-current_distances / avg_distance))\n    alignment_weight = 0.5 * np.exp(-dest_distances / avg_distance)\n    scores = proximity_weight + alignment_weight\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 6.56392,
+          "other_inf": null
+     },
+     {
+          "algorithm": " The new algorithm selects the next node by combining the distance from the current node and the destination node, weighted by a dynamic balance factor that prioritizes nodes closer to the midpoint between the current and destination nodes. ",
+          "code": "import numpy as np  \n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):  \n    if len(unvisited_nodes) == 0:  \n        return destination_node  \n    current_dist = distance_matrix[current_node, unvisited_nodes]  \n    dest_dist = distance_matrix[destination_node, unvisited_nodes]  \n    midpoint_dist = (current_dist + dest_dist) / 2  \n    balance_factor = np.abs(current_dist - midpoint_dist) / (current_dist + midpoint_dist + 1e-8)  \n    scores = current_dist * (1 + balance_factor)  \n    next_node_idx = np.argmin(scores)  \n    next_node = unvisited_nodes[next_node_idx]  \n    return next_node",
+          "objective": 6.69517,
+          "other_inf": null
+     },
+     {
+          "algorithm": "```",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_dist = distance_matrix[current_node, unvisited_nodes]\n    dest_dist = distance_matrix[destination_node, unvisited_nodes]\n    angle_factor = np.abs(current_dist - dest_dist) / (current_dist + dest_dist + 1e-8)\n    scores = current_dist * (1 + angle_factor)\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 6.76738,
+          "other_inf": null
+     },
+     {
+          "algorithm": "Novel algorithm: Select the next node by balancing proximity to the current node and direction toward the destination, using a weighted sum of distances.",
+          "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_dist = distance_matrix[current_node, unvisited_nodes]\n    dest_dist = distance_matrix[destination_node, unvisited_nodes]\n    weights = 0.7 * current_dist + 0.3 * dest_dist\n    next_node_idx = np.argmin(weights)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+          "objective": 7.04521,
+          "other_inf": null
+     }
+]

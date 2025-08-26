@@ -1,0 +1,6 @@
+{
+     "algorithm": "Novel algorithm: At each step, select the next node by balancing proximity to the current node and alignment toward the destination, weighted by the remaining unvisited nodes' distribution.",
+     "code": "import numpy as np\n\ndef select_next_node(current_node, destination_node, unvisited_nodes, distance_matrix):\n    if len(unvisited_nodes) == 0:\n        return destination_node\n    current_distances = distance_matrix[current_node, unvisited_nodes]\n    dest_distances = distance_matrix[destination_node, unvisited_nodes]\n    proximity_weight = 0.6  # Weight for proximity to current node\n    alignment_weight = 0.4  # Weight for alignment toward destination\n    scores = proximity_weight * current_distances - alignment_weight * dest_distances\n    next_node_idx = np.argmin(scores)\n    next_node = unvisited_nodes[next_node_idx]\n    return next_node",
+     "objective": 6.13382,
+     "other_inf": null
+}

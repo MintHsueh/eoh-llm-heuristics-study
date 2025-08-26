@@ -1,5 +1,11 @@
 # Evolution of Heuristics – LLM-based Heuristic Algorithm Design
 
+This project includes code adapted from the original repository:
+https://github.com/FeiLiu36/EoH (MIT License)
+
+Modified and applied to TSP by Min-Chih Hsueh, 2025.
+
+---
 This repository documents my study and implementation of the following research paper, which explores how Large Language Models (LLMs) can be combined with evolutionary strategies to automatically generate effective heuristic algorithms.
 
 本專案旨在深入理解該論文提出的 EoH 框架，探討其如何結合大型語言模型 (LLM) 與演化式計算 (EC)，自動化產生啟發式演算法 (Heuristics)。本專案亦實作論文提供的 GitHub 程式碼，並進一步分析結果
@@ -278,7 +284,7 @@ This project includes:
 ```plaintext
 執行主程式 📄examples/tsp_construct/runEoH.py
 │
-├── 建立參數物件 Paras() (📄eoh/utils/getParas.py)
+├── 建立參數物件 Paras() (📄eoh/src/eoh/utils/getParas.py)
 │   └── 使用 set_paras() 設定所有參數：
 │       • method = "eoh" → 使用 Evolution of Heuristics 方法
 │       • problem = "tsp_construct" → 解 TSP 問題
@@ -286,13 +292,13 @@ This project includes:
 │
 └── 建立演化物件 EVOL(paras) (📄eoh/src/eoh/eoh.py)
     │
-    ├── 呼叫 create_folders() (📄eoh/utils/createFolders.py)
+    ├── 呼叫 create_folders() (📄eoh/src/eoh/utils/createFolders.py)
     │   • 建立儲存演化結果的資料夾
     │
     └── 執行 EVOL.run()
         ├── 呼叫 Probs(paras) (📄eoh/src/eoh/problems/problems.py)
         │   • 根據 paras.problem 載入問題類別，若為 "tsp_construct"：
-        │   • 載入類別 TSPCONST (📄eoh/problems/optimization/tsp_greedy/run.py)
+        │   • 載入類別 TSPCONST (📄eoh/src/eoh/problems/optimization/tsp_greedy/run.py)
         │     ├── 初始化問題：
         │     │   • 建立 GetData 物件並呼叫 generate_instances()（📄./tsp_greedy/get_instance.py） 
         │     │     - 隨機產生 8 組、每組 50 點的 TSP 實例（含座標與距離矩陣）
@@ -309,7 +315,7 @@ This project includes:
         │         • 呼叫 greedy() 並傳入 heuristic_module，執行其中的 select_next_node() 走過每個 TSP 實例，計算 tour cost
         │         • 回傳 8 組 TSP 實例的平均 tour cost，作為該段程式碼的 fitness 分數
         │
-        ├── 建立 methodGenerator = Methods(paras, problem) (📄eoh/methods/methods.py)
+        ├── 建立 methodGenerator = Methods(paras, problem) (📄eoh/src/eoh/methods/methods.py)
         │        ├── 讀取 paras.selection → 選擇個體選擇策略 (如 prob_rank, roulette_wheel, tournament...)
         |        |   • 對應 📄 eoh/methods/selection.py
         |        |   • 目前設定為 prob_rank → 演算法個體會依照 fitness 排序，fitness 越高越容易被挑選為 parent
@@ -318,11 +324,11 @@ This project includes:
         |        |   • 目前設定為 pop_greedy → 每輪會選出 fitness 最好的前 pop_size 名作為新一代 population
         │        └── 呼叫 methodGenerator.get_method() → 決定使用哪個演化方法
         │            • 若 paras.method = "eoh"：
-        │              - 載入 EOH 類別（📄eoh/methods/eoh/eoh.py）
+        │              - 載入 EOH 類別（📄./eoh/methods/eoh/eoh.py）
         │              - 回傳 EOH(paras, problem, select, manage) 物件，並呼叫 method.run() 以執行 EOH.run()
         |
-        └── 執行 EOH.run() 開始整個演化流程 (📄eoh/methods/eoh/eoh.py)：
-            ├── Step 1. 建立物件 interface_ec = InterfaceEC (📄 eoh/methods/eoh/eoh_interface_EC.py)
+        └── 執行 EOH.run() 開始整個演化流程 (📄eoh/src/eoh/methods/eoh/eoh.py)：
+            ├── Step 1. 建立物件 interface_ec = InterfaceEC (📄 ./eoh/methods/eoh/eoh_interface_EC.py)
             │    ├── 初始化 __init__()
             |    |   • 傳入參數：pop_size, timeout, n_proc, use_numba, select, manage, api_key, llm_model...
             |    |   • 預設 n_create = 2（每次初始族群生成將重複 2 輪）
@@ -345,7 +351,7 @@ This project includes:
             │    │        ├── 建立 prompt（📄 eoh_prompts.py）
             │    │        │   • 呼叫 evol.get_prompt_e1/e2/m1/m2() → 根據 operator 建立對應 prompt
             │    │        │   • 呼叫 GetPrompts() 物件 (📄/tsp_greedy/prompts.py) → 取得函式名稱、輸入輸出參數與說明，組合完整 prompt 字串
-            │    │        ├── 呼叫 LLM API (📄eoh/llm/interface_LLM.py)
+            │    │        ├── 呼叫 LLM API (📄eoh/src/eoh/llm/interface_LLM.py)
             │    │        │   • 使用 get_response(prompt) 發送 prompt 給指定的 LLM 模型（如 DeepSeek）
             │    │        │   • 回傳 Python 程式碼（內含 select_next_node() 定義）
             │    │        │   • 回傳 heuristic 字串（如 algorithm, code）給 get_offspring()
