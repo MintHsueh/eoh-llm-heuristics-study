@@ -6,7 +6,6 @@
 # "Algorithm evolution using large language model." 
 # arXiv preprint arXiv:2311.15249 (2023).
 
-
 from evaluation import Evaluation
 import pickle
 import time
@@ -23,10 +22,9 @@ with open("results.txt", "w") as file:
             instance_dataset = pickle.load(f)
 
         eva = Evaluation(size,instance_dataset,n_test_ins,debug_mode)
-
         time_start = time.time()
         gap = eva.evaluate()
-
+        
         result = (f"Average dis on {n_test_ins} instance with size {size} is: {gap:7.3f} timecost: {time.time()-time_start:7.3f}")
         print(result)
         file.write(result + "\n")

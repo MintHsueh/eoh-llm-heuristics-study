@@ -19,5 +19,4 @@ def create_folders(results_path):
         if not os.path.exists(subfolder_path):
             os.makedirs(subfolder_path)
 
-
     #print("Results folders created successfully!")

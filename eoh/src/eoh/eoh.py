@@ -19,7 +19,7 @@ class EVOL:
         print("- output folder created -")
 
         self.paras = paras
-
+        
         print("-  parameters loaded -")
 
         self.prob = prob
@@ -30,15 +30,10 @@ class EVOL:
         
     # run methods
     def run(self):
-
         problemGenerator = problems.Probs(self.paras)
-
         problem = problemGenerator.get_problem()
-
         methodGenerator = methods.Methods(self.paras,problem)
-
         method = methodGenerator.get_method()
-
         method.run()
 
         print("> End of Evolution! ")

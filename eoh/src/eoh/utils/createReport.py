@@ -24,7 +24,6 @@ class ReportCreator():
             with open(self.exp_output_path+"ael_results/pops/population_generation_"+str(i)+".json") as file:
                     data = json.load(file)
 
-
             #Print each individual in the population
             na = 0
             for individual in data:
@@ -183,11 +182,7 @@ class ReportCreator():
 
 
 if __name__ == "__main__":
-
     Paras = Paras()
-
     RC = ReportCreator(Paras)
-
     RC.generate_doc_report()
-
     print("Doc report generated successfully!")

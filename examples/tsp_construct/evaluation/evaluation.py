@@ -6,14 +6,11 @@ import time
 
 class Evaluation():
     def __init__(self,problem_size,dataset,n_test,debug_mode=False) -> None:
-
         self.ndelay = 1
         self.problem_size = problem_size
         self.neighbor_size = problem_size
         self.n_instance = n_test
-        
         self.instance_data = dataset
-
 
     def tour_cost(self,instance, solution, problem_size):
         cost = 0
@@ -64,58 +61,40 @@ class Evaluation():
 
 
     def evaluate(self):
-  
         heuristic_module = importlib.import_module("heuristic")
         eva = importlib.reload(heuristic_module)     
-
         dis = np.zeros(self.n_instance)
         n_ins = 0
+
         for instance, distance_matrix in self.instance_data:
             if n_ins == self.n_instance: break
 
             # get neighborhood matrix, we do not need it 
             neighbor_matrix = self.generate_neighborhood_matrix(instance)
-
             destination_node = 0
-
             current_node = 0
 
             route = np.zeros(self.problem_size)
             #print(">>> Step 0 : select node "+str(instance[0][0])+", "+str(instance[0][1]))
             for i in range(1,self.problem_size-1):
-
                 near_nodes = neighbor_matrix[current_node][1:]
-
                 mask = ~np.isin(near_nodes,route[:i])
-
                 unvisited_near_nodes = near_nodes[mask]
-
                 unvisited_near_size = np.minimum(self.neighbor_size,unvisited_near_nodes.size)
-
                 unvisited_near_nodes = unvisited_near_nodes[:unvisited_near_size]
-
                 next_node = eva.select_next_node(current_node, destination_node, unvisited_near_nodes, distance_matrix)
-
                 current_node = next_node
-
                 route[i] = current_node
 
                 #print(">>> Step "+str(i)+": select node "+str(instance[current_node][0])+", "+str(instance[current_node][1]))
 
             mask = ~np.isin(np.arange(self.problem_size),route[:self.problem_size-1])
-
             last_node = np.arange(self.problem_size)[mask]
-
             current_node = last_node[0]
-
             route[self.problem_size-1] = current_node
-
             distance = self.tour_cost(instance,route,self.problem_size)
-
             dis[n_ins] = distance
-
             n_ins += 1
-
 
         ave_dis = np.average(dis)
 
